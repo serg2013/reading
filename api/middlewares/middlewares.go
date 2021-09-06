@@ -4,7 +4,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/serg2013/reading/api/auth"
+	"github.com/c/api/auth"
 	"github.com/serg2013/reading/api/responses"
 )
 
