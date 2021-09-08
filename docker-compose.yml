@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: full_app
+    container_name: reading_app
     build: .
     ports: 
       - 8080:8080 # Forward the exposed port 8080 on the container to port 8080 on the host machine
@@ -9,14 +9,13 @@ services:
     volumes:
       - api:/usr/src/app/
     depends_on:
-      - postgres # This service depends on postgres. Start that first.
-      # - mysql # This service depends on mysql. Start that first.
+      - reading-postgres # This service depends on postgres. Start that first.
     networks:
-      - fullstack
+      - reading
 
-  postgres:
+  reading-postgres:
     image: postgres:latest
-    container_name: full_db
+    container_name: reading_db_postgres
     environment:
       - POSTGRES_USER=${DB_USER}  
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -27,22 +26,21 @@ services:
     volumes:
       - database_postgres:/var/lib/postgresql/data
     networks:
-      - fullstack
+      - reading
 
-  # mysql:
-  #   image: mysql:5.7
-  #   ports: 
-  #     - 3306:3306
-  #   environment: 
-  #     - MYSQL_DATABASE=${DB_NAME}
-  #     - MYSQL_USER=${DB_USER}
-  #     - MYSQL_PASSWORD=${DB_PASSWORD}
-  #     - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-  #     - DATABASE_HOST=${DB_HOST} 
-  #   volumes:
-  #     - database_mysql:/var/lib/postgresql/data
-  #   networks:
-  #     - fullstack
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: reading_pgadmin
+      environment:
+        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      depends_on:
+        - reading-postgres
+      ports:
+        - "5050:80"
+      networks:
+        - reading
+      restart: unless-stopped
 
 volumes:
   api:
@@ -50,5 +48,6 @@ volumes:
 
 # Networks to be created to facilitate communication between containers
 networks:
-  fullstack:
+  reading:
+    driver: bridge
 
