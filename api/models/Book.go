@@ -11,7 +11,7 @@ import (
 )
 
 type Book struct {
-	ID       uint64 `gorm:"primary_key;auto_increment" json:"id"`
+	ID       uint32 `gorm:"primary_key;auto_increment" json:"id"`
 	Title    string `gorm:"size:255;not null;unique" json:"title"`
 	Content  string `gorm:"size:255;not null;" json:"content"`
 	Author   Author `json:"author"`
