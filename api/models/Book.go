@@ -15,7 +15,7 @@ type Book struct {
 	Title    string `gorm:"size:255;not null;unique" json:"title"`
 	Content  string `gorm:"size:255;not null;" json:"content"`
 	Author   Author `json:"author"`
-	AuthorID uint32 `sql:"type:int REFERENCES author(id)" json:"author_id"`
+	AuthorID uint32 `sql:"type:int REFERENCES authors(id)" json:"author_id"`
 }
 
 func (b *Book) Prepare() {

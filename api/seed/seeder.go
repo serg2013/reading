@@ -71,7 +71,6 @@ func Load(db *gorm.DB) {
 	if err != nil {
 		log.Fatalf("cannot migrate table: %v", err)
 	}
-
 	err = db.Debug().Model(&models.Book{}).AddForeignKey("author_id", "authors(id)", "cascade", "cascade").Error
 	if err != nil {
 		log.Fatalf("attaching foreign key error: %v", err)
@@ -90,5 +89,12 @@ func Load(db *gorm.DB) {
 			log.Fatalf("cannot seed posts table: %v", err)
 		}
 
+	}
+
+	for i, _ := range users {
+		err = db.Debug().Model(&models.User{}).Create(&users[i]).Error
+		if err != nil {
+			log.Fatalf("cannot seed users table: %v", err)
+		}
 	}
 }
