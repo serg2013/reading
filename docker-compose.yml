@@ -4,12 +4,12 @@ services:
     container_name: reading_app
     build: .
     ports: 
-      - 8080:8080 # Forward the exposed port 8080 on the container to port 8080 on the host machine
+      - 8080:8080
     restart: on-failure
     volumes:
       - api:/usr/src/app/
     depends_on:
-      - reading-postgres # This service depends on postgres. Start that first.
+      - reading-postgres
     networks:
       - reading
 
@@ -46,7 +46,6 @@ volumes:
   api:
   database_postgres:
 
-# Networks to be created to facilitate communication between containers
 networks:
   reading:
     driver: bridge

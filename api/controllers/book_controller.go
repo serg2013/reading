@@ -87,21 +87,19 @@ func (server *Server) UpdateBook(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
-	// Check if the post id is valid
 	pid, err := strconv.ParseUint(vars["id"], 10, 64)
 	if err != nil {
 		responses.ERROR(w, http.StatusBadRequest, err)
 		return
 	}
 
-	//CHeck if the auth token is valid and  get the user id from it
+	//Check if the auth token is valid and  get the user id from it
 	uid, err := auth.ExtractTokenID(r)
 	if err != nil {
 		responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
 		return
 	}
 
-	// Check if the book exists
 	book := models.Book{}
 	err = server.DB.Debug().Model(models.Book{}).Where("id = ?", pid).Take(&book).Error
 	if err != nil {
@@ -114,6 +112,7 @@ func (server *Server) UpdateBook(w http.ResponseWriter, r *http.Request) {
 		responses.ERROR(w, http.StatusUnauthorized, errors.New("Unauthorized"))
 		return
 	}
+
 	// Read the data posted
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -142,7 +141,7 @@ func (server *Server) UpdateBook(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bookUpdate.ID = book.ID //this is important to tell the model the post id to update, the other update field are set above
+	bookUpdate.ID = book.ID
 
 	bookUpdated, err := bookUpdate.UpdateABook(server.DB)
 

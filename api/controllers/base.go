@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 
-	_ "github.com/jinzhu/gorm/dialects/postgres" //postgres database driver
+	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/serg2013/reading/api/models"
 )
 
@@ -29,7 +29,7 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 		fmt.Printf("We are connected to the %s database", Dbdriver)
 	}
 
-	server.DB.Debug().AutoMigrate(&models.User{}, &models.Author{}, &models.Book{}) //database migration
+	server.DB.Debug().AutoMigrate(&models.User{}, &models.Author{}, &models.Book{})
 
 	server.Router = mux.NewRouter()
 

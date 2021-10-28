@@ -5,8 +5,6 @@ import (
 	"html"
 	"strings"
 
-	//"time"
-
 	"github.com/jinzhu/gorm"
 )
 
