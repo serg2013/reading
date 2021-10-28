@@ -93,7 +93,7 @@ func Load(db *gorm.DB) {
 
 		err = db.Debug().Model(&models.Book{}).Create(&books[i]).Error
 		if err != nil {
-			log.Fatalf("cannot seed posts table: %v", err)
+			log.Fatalf("cannot seed books table: %v", err)
 		}
 
 	}
