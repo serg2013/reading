@@ -19,6 +19,7 @@ func init() {
 	}
 }
 
+// Main run point
 func Run() {
 
 	var err error
