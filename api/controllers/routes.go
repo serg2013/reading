@@ -17,8 +17,8 @@ func (s *Server) initializeRoutes() {
 	s.Router.HandleFunc("/authors", middlewares.SetMiddlewareJSON(s.CreateAuthor)).Methods("POST")
 	s.Router.HandleFunc("/authors", middlewares.SetMiddlewareJSON(s.GetAuthors)).Methods("GET")
 	s.Router.HandleFunc("/authors/{id}", middlewares.SetMiddlewareJSON(s.GetAuthor)).Methods("GET")
-	s.Router.HandleFunc("/authors/{id}", middlewares.SetMiddlewareJSON(middlewares.SetMiddlewareAuthentication(s.UpdateBook))).Methods("PUT")
-	s.Router.HandleFunc("/authors/{id}", middlewares.SetMiddlewareAuthentication(s.UpdateBook)).Methods("DELETE")
+	s.Router.HandleFunc("/authors/{id}", middlewares.SetMiddlewareJSON(middlewares.SetMiddlewareAuthentication(s.UpdateAuthor))).Methods("PUT")
+	s.Router.HandleFunc("/authors/{id}", middlewares.SetMiddlewareAuthentication(s.UpdateAuthor)).Methods("DELETE")
 
 	s.Router.HandleFunc("/books", middlewares.SetMiddlewareJSON(s.CreateBook)).Methods("POST")
 	s.Router.HandleFunc("/books", middlewares.SetMiddlewareJSON(s.GetBooks)).Methods("GET")
