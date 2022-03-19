@@ -1,7 +1,6 @@
 # Files
 .dockerignore
 .gitignore
-.git
 .env
 Dockerfile
 # **/*_test.go
