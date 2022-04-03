@@ -2,7 +2,6 @@
 .dockerignore
 .gitignore
 .env
-Dockerfile
 # **/*_test.go
 
 # Folders
