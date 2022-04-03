@@ -53,6 +53,14 @@ func (server *Server) CreateBook(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusCreated, postCreated)
 }
 
+// GetBooks func gets all exists books.
+// @Description Get all exists books.
+// @Summary get all exists books
+// @Tags Books
+// @Accept json
+// @Produce json
+// @Success 200 {array} models.Book
+// @Router /books [get]
 func (server *Server) GetBooks(w http.ResponseWriter, r *http.Request) {
 
 	book := models.Book{}
@@ -65,6 +73,15 @@ func (server *Server) GetBooks(w http.ResponseWriter, r *http.Request) {
 	responses.JSON(w, http.StatusOK, books)
 }
 
+// GetBook func gets book by given ID or 404 error.
+// @Description Get book by given ID.
+// @Summary get book by given ID
+// @Tags Book
+// @Accept json
+// @Produce json
+// @Param id path string true "Book ID"
+// @Success 200 {object} models.Book
+// @Router /books/{id} [get]
 func (server *Server) GetBook(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
