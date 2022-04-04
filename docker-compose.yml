@@ -42,8 +42,21 @@ services:
         - reading
       restart: unless-stopped
 
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger_ui_container
+    ports:
+        - "8081:8080"
+    volumes:
+        - ./docs:/usr/share/nginx/html/doc
+    environment:
+        API_URL: docs/swagger.json
+    networks:
+      - reading
+
 volumes:
   api:
+  docs:
   database_postgres:
 
 networks:
