@@ -2,12 +2,14 @@ version: '3'
 services:
   app:
     container_name: reading_app
-    build: .
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports: 
       - 8080:8080
     restart: on-failure
     volumes:
-      - app:/usr/src/app/
+      - .:/usr/src/app/
     depends_on:
       - reading-postgres
     networks:
@@ -50,12 +52,11 @@ services:
     volumes:
         - ./docs:/usr/share/nginx/html/doc
     environment:
-        SWAGGER_JSON: docs/swagger.json
+        API_URL: docs/swagger.json
     networks:
       - reading
 
 volumes:
-  app:
   docs:
   database_postgres:
 
