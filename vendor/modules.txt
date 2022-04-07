@@ -43,6 +43,9 @@ github.com/lib/pq/scram
 github.com/mailru/easyjson/buffer
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
+# github.com/rs/cors v1.8.2
+## explicit
+github.com/rs/cors
 # github.com/swaggo/swag v1.8.1
 ## explicit
 github.com/swaggo/swag
