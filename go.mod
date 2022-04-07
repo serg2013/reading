@@ -10,7 +10,7 @@ require (
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.3.0
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/rs/cors v1.8.2
+	//github.com/rs/cors v1.8.2
 	github.com/swaggo/swag v1.8.1
 	golang.org/x/crypto v0.0.0-20220331220935-ae2d96664a29
 	golang.org/x/net v0.0.0-20220403103023-749bd193bc2b // indirect
