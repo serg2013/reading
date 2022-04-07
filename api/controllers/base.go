@@ -7,7 +7,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"github.com/rs/cors"
+
+	//_ "github.com/rs/cors"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/serg2013/reading/api/models"
@@ -39,6 +40,7 @@ func (server *Server) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, D
 
 func (server *Server) Run(addr string) {
 	fmt.Println("Listening to port 8080")
-	cHandler := cors.Default().Handler(server.Router)
-	log.Fatal(http.ListenAndServe(addr, cHandler))
+	// cHandler := cors.Default().Handler(server.Router)
+	// log.Fatal(http.ListenAndServe(addr, cHandler))
+	log.Fatal(http.ListenAndServe(addr, server.Router))
 }
