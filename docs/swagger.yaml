@@ -1,0 +1,313 @@
+basePath: /
+definitions:
+  models.Author:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+      name:
+        type: string
+    type: object
+  models.Book:
+    properties:
+      author:
+        $ref: '#/definitions/models.Author'
+      author_id:
+        type: integer
+      content:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  models.Cred:
+    properties:
+      email:
+        example: user_@gmail.com
+        type: string
+      password:
+        example: password
+        type: string
+    type: object
+  models.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      nickname:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: 127.0.0.1:8080
+info:
+  contact:
+    email: raven1901@mail.ru
+    name: API Support
+    url: github.com/serg2013
+  description: This is a sample server API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: reading API
+  version: "1.0"
+paths:
+  /authors:
+    get:
+      consumes:
+      - application/json
+      description: Gets all existing authors.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Author'
+            type: array
+      summary: Gets all existing authors
+      tags:
+      - Authors
+    post:
+      consumes:
+      - application/json
+      description: Creates a new author
+      parameters:
+      - description: book data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Author'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Author'
+      security:
+      - ApiKeyAuth: []
+      summary: Creates new author
+      tags:
+      - Authors
+  /authors/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes an author by given ID.
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Author'
+      security:
+      - ApiKeyAuth: []
+      summary: deletes an author by given ID
+      tags:
+      - Authors
+    get:
+      consumes:
+      - application/json
+      description: Get author by given ID.
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Author'
+      summary: get author by given ID
+      tags:
+      - Authors
+    put:
+      consumes:
+      - application/json
+      description: Updates existing author
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: book data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Author'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Author'
+      security:
+      - ApiKeyAuth: []
+      summary: Updates existing author
+      tags:
+      - Authors
+  /books:
+    get:
+      consumes:
+      - application/json
+      description: Get all exists books.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Book'
+            type: array
+      summary: get all exists books
+      tags:
+      - Books
+    post:
+      consumes:
+      - application/json
+      description: Create new book
+      parameters:
+      - description: book data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: Create new book
+      tags:
+      - Books
+  /books/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a book by given ID.
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: deletes a book by given ID
+      tags:
+      - Books
+    get:
+      consumes:
+      - application/json
+      description: Get book by given ID.
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Book'
+      summary: get book by given ID
+      tags:
+      - Books
+    put:
+      consumes:
+      - application/json
+      description: Update existing book
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: book data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: Update existing book
+      tags:
+      - Books
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Checks user credentials
+      parameters:
+      - description: Authorization
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.Cred'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Checks login data
+      tags:
+      - Authorization
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,66 @@
+version: '3'
+services:
+  app:
+    container_name: reading_app
+    build: .
+    ports: 
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - app:/usr/src/app/
+    depends_on:
+      - reading-postgres
+    networks:
+      - reading
+
+  reading-postgres:
+    image: postgres:latest
+    container_name: reading_db_postgres
+    environment:
+      - POSTGRES_USER=${DB_USER}  
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST} 
+    ports:
+      - '5432:5432'
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+    networks:
+      - reading
+
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: reading_pgadmin
+      environment:
+        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      depends_on:
+        - reading-postgres
+      ports:
+        - "5050:80"
+      networks:
+        - reading
+      restart: unless-stopped
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger_ui_container
+    ports:
+        - "8081:8080"
+    volumes:
+        - ./docs:/usr/share/nginx/html/doc
+    environment:
+        #SWAGGER_JSON: docs/swagger.json
+        API_URL: doc/swagger.json
+    networks:
+      - reading
+
+volumes:
+  app:
+  docs:
+  database_postgres:
+
+networks:
+  reading:
+    driver: bridge
+
