@@ -1,0 +1,8 @@
+# Files
+.dockerignore
+.gitignore
+# **/*_test.go
+
+# Folders
+.git/
+vendor/
